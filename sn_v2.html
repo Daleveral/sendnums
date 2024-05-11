@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发牌程序</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #db591d;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 20px 40px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(20, 15, 15, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .numbers {
+            margin-top: 20px;
+        }
+
+        .spacer {
+            margin-top: 35px;
+        }
+        
+        .number-box {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #007bff;
+            font-size: 24px;
+            font-weight: bolder;
+            border-radius: 15px;
+            margin-right: 10px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .number-box:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="initial-screen">
+            <div id="button-k" class="button" onclick="showNumbers()">开始发牌 !</div>
+        </div>
+        <div id="reveal-screen" class="hidden">
+            <div class="numbers">
+                <div id="number-1" class="number-box"></div>
+                <div id="number-2" class="number-box"></div>
+                <div id="number-3" class="number-box"></div>
+                <div id="number-4" class="number-box"></div>
+                <div id="number-5" class="number-box"></div>
+            </div>
+            <div class="spacer"></div>
+            <div id="button-k" class="button" onclick="toggleScreen()">我记住了 !</div>
+        </div>
+    </div>
+
+    <script>
+        var stack = [];
+        var currentRound = 0;
+
+        function initializeStack() {
+            for (var i = 1; i <= 15; i++) {
+                stack.push(i);
+            }
+            stack.sort(function () {
+                return 0.5 - Math.random();
+            });
+        }
+
+        function dealCards() {
+            var tempArray = [];
+            for (var i = 0; i < 5; i++) {
+                tempArray.push(stack.pop());
+            }
+            tempArray.sort(function (a, b) {
+                return a - b;
+            });
+            return tempArray;
+        }
+
+        function showNumbers() {
+            if (currentRound < 3) {
+                var numbers = dealCards();
+                document.getElementById("number-1").innerText = numbers[0];
+                document.getElementById("number-2").innerText = numbers[1];
+                document.getElementById("number-3").innerText = numbers[2];
+                document.getElementById("number-4").innerText = numbers[3];
+                document.getElementById("number-5").innerText = numbers[4];
+                document.getElementById("initial-screen").classList.add("hidden");
+                document.getElementById("reveal-screen").classList.remove("hidden");
+                document.getElementById("button-k").innerText = "我记住了 !";
+                currentRound++;
+            } else {
+                // Last round reached, clear the screen
+                document.getElementById("container").innerHTML = "";
+            }
+        }
+
+        function toggleScreen() {
+            // No response after the third round
+            if (currentRound < 4) {
+                document.getElementById("initial-screen").classList.remove("hidden");
+                document.getElementById("reveal-screen").classList.add("hidden");
+
+                if(currentRound == 3 ) {
+                    document.getElementById("button-k").innerText = "分发结束 !";
+
+                } else {
+                    document.getElementById("button-k").innerText = "为我发牌 !";
+                }
+                // currentRound = 0;
+            }
+        }
+
+        // Initialize the stack when the page loads
+        initializeStack();
+    </script>
+</body>
+
+</html>
