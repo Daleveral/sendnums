@@ -7,6 +7,7 @@
     <style>
         body {
             background-color: orange;
+            font-family: Arial, sans-serif;
         }
 
         .container {
@@ -25,22 +26,24 @@
         }
 
         .number-button {
-            padding: 12px 20px;
-            background-color: rgba(255, 255, 255, 0.738);
+            padding: 9px 18px;
+            background-color: rgb(255, 255, 255);
             border: none;
             border-radius: 10px;
             color: rgb(14 78 176);
-            font-size: 22px;
-            font-weight: bolder;
-            font-family: 'LXGW WenKai', 'Microsoft YaHei', 'sans-serif';
+            font-size: 25px;
+            font-weight:bold;
             cursor: pointer;
             margin: 0 8px;
             transition: background-color 0.3s ease;
+            box-shadow: 0 3px 6px rgba(5, 20, 39, 0.236), 0 3px 6px rgba(195, 206, 137, 0.4) inset;
+
         }
 
-        button:disabled {
+        .number-button.disabled {
             cursor: not-allowed;
-            background-color: lightgrey;
+            background-color: rgb(25, 13, 103);
+            color: rgb(25, 13, 103);
         }
 
         #distributeBtn {
@@ -53,21 +56,20 @@
             font-size: 30px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            box-shadow: 0 3px 6px rgba(5, 20, 39, 0.325), 0 3px 6px rgba(195, 206, 137, 0.292) inset;
         }
 
         #stackCountBtn {
             padding: 10px 20px;
-            background-color: rgb(24 61 169);
+            background-color: rgb(30, 75, 211);
             border: none;
             border-radius: 10px;
             color: rgb(194, 218, 169);
             font-size: 22px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            box-shadow: 0 3px 6px rgba(5, 20, 39, 0.292), 0 3px 6px rgba(195, 206, 137, 0.33) inset;
         }
-
-
-
 
         .hidden {
             display: none;
@@ -80,11 +82,11 @@
     <div class="container">
         <div class="button-container">
             <button id="distributeBtn" onclick="distributeNumbers()">领取数字！</button>
-            <button class="number-button hidden" id="number1"></button>
-            <button class="number-button hidden" id="number2"></button>
-            <button class="number-button hidden" id="number3"></button>
-            <button class="number-button hidden" id="number4"></button>
-            <button class="number-button hidden" id="number5"></button>
+            <button class="number-button hidden" id="number1" onclick="disableNumberButton(this)"></button>
+            <button class="number-button hidden" id="number2" onclick="disableNumberButton(this)"></button>
+            <button class="number-button hidden" id="number3" onclick="disableNumberButton(this)"></button>
+            <button class="number-button hidden" id="number4" onclick="disableNumberButton(this)"></button>
+            <button class="number-button hidden" id="number5" onclick="disableNumberButton(this)"></button>
         </div>
         <div class="button-container">
             <button id="stackCountBtn" disabled >~^.^~</button>
@@ -132,6 +134,16 @@
             }
         }
 
+        function disableNumberButton(button) {
+            if (button.classList.contains('disabled')) {
+                button.classList.remove('disabled');
+            } else {
+                button.classList.add('disabled');
+            }
+        }
     </script>
 </body>
-</html>
+</html> 
+
+
+
