@@ -70,6 +70,9 @@ nohup node server.js > out.txt 2>&1 &
 # 要中断后台服务, 则查询其 PID 然后 kill 掉
 ps aux | grep node
 
+# 我们一般使用 ssh 连接主机, 退出 ssh 使用 `exit` 时可能导致此后台进程也结束
+# 先使用命令 `disown` 再 `exit` 即可避免此问题
+
 ```
 
 <img src="./imgs/v3.png" width="50%">
